@@ -19,6 +19,18 @@
         <hr>
         <h5>Slug</h5>
         <p>{{ $project->slug }}</p>
+
+        {{-- Technology --}}
+        <div>
+            @forelse ($project->technologies as $technology)
+                <p class="badge" style="background: {{ $technology->color }}">
+                    {{ $technology->name }}
+                </p>
+            @empty
+                <p class="badge" style="background: grey">Niente</p>
+            @endforelse
+        </div>
+
         <a class="btn btn-primary" href="{{ route('admin.projects.index') }}">Indietro</a>
     </div>
 @endsection
