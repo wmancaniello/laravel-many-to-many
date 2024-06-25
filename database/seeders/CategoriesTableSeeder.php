@@ -15,10 +15,9 @@ class CategoriesTableSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Laravel', 'color' => 'red'],
-            ['name' => 'HTML', 'color' => 'blue'],
-            ['name' => 'JavaScript', 'color' => 'lightred'],
-            ['name' => 'CSS', 'color' => 'lightblue'],
+            ['name' => 'BackEnd', 'color' => 'red'],
+            ['name' => 'FrontEnd', 'color' => 'blue'],
+            ['name' => 'FullStack', 'color' => 'lightblue'],
         ];
 
         foreach ($categories as $category) {
