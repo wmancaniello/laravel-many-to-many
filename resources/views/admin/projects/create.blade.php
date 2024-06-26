@@ -49,21 +49,17 @@
             {{-- SELEZIONA TECHNO --}}
             <div class="mb-3">
                 <h4>Seleziona Tech:</h4>
-                <ul class="list-group">
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     @foreach ($technologies as $technology)
-                        <li class="list-group-item">
-
-                            <input @checked(in_array($technologies->id, old('technologies, []'))) name="technologies[]" class="form-check-input me-1"
-                                type="checkbox" value="{{ $technology->id }}" id="technology-{{ $technology->id }}">
-
-                            <label class="form-check-label" for="technology-{{ $technology->id }}">
-                                {{ $technology->name }}
-                            </label>
-
-                        </li>
+                        <input @checked(in_array($technology->id, old('technologies', []))) name="technologies[]" class="btn-check" type="checkbox"
+                            value="{{ $technology->id }}" id="technology-{{ $technology->id }}" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="technology-{{ $technology->id }}">
+                            {{ $technology->name }}
+                        </label>
                     @endforeach
-                </ul>
+                </div>
             </div>
+
 
             <button class="btn btn-success" type="submit">Salva</button>
             <a class="btn btn-danger" href="{{ route('admin.projects.index') }}">Indietro</a>

@@ -50,26 +50,23 @@
             {{-- MODIFICA TECHNOLOGIES --}}
             <div class="mb-3">
                 <h4>Modifica le Tech:</h4>
-                <ul class="list-group">
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
                     @foreach ($technologies as $technology)
-                        <li class="list-group-item">
+                        {{-- Validazione --}}
+                        @if (old('technologies') !== null)
+                            <input @checked(in_array($technology->id, old('technologies'))) name="technologies[]" class="btn-check" type="checkbox"
+                                value="{{ $technology->id }}" id="tag-{{ $technology->id }}" autocomplete="off">
+                        @else
+                            <input @checked($project->technologies->contains($technology)) name="technologies[]" class="btn-check" type="checkbox"
+                                value="{{ $technology->id }}" id="tag-{{ $technology->id }}" autocomplete="off">
+                        @endif
 
-                            {{-- Validazione --}}
-                            @if (old('technologies') !== null)
-                                <input @checked(in_array($technology->id, old('technologies'))) name="technologies[]" class="form-check-input me-1"
-                                    type="checkbox" value="{{ $technology->id }}" id="tag-{{ $technology->id }}">
-                            @else
-                                <input @checked($project->technologies->contains($technology)) name="technologies[]" class="form-check-input me-1"
-                                    type="checkbox" value="{{ $technology->id }}" id="tag-{{ $technology->id }}">
-                            @endif
-
-                            <label class="form-check-label" for="technology-{{ $technology->id }}">
-                                {{ $technology->name }}
-                            </label>
-
-                        </li>
+                        <label class="btn btn-outline-primary" for="tag-{{ $technology->id }}">
+                            {{ $technology->name }}
+                        </label>
                     @endforeach
-                </ul>
+                </div>
+
             </div>
 
 
