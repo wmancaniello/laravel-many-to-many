@@ -29,9 +29,7 @@
                 @foreach ($listProject as $project)
                     <tr>
                         <th scope="row">{{ $project->id }}</th>
-                        <td>
-                            <span class="{{ $project->category?->color }}">{{ $project->title }}</span>
-                        </td>
+                        <td>{{ $project->title }}</td>
                         <td>{{ $project->category?->name }}</td>
                         <td>{{ $project->slug }}</td>
                         <td>

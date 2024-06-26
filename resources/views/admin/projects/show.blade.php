@@ -12,7 +12,7 @@
 
         <h2>Titolo {{ $project->id }}:</h2>
         <h3>{{ $project->title }}</h3>
-        <p class="{{ $project->category?->color }}">Categoria: {{ $project->category?->name }}</p>
+        <p>Categoria: {{ $project->category?->name }} </p>
         <hr>
         <h5>Descrizione:</h5>
         <p>{{ $project->description }}</p>
