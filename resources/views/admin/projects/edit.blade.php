@@ -29,14 +29,14 @@
             </div>
 
             <div class="mb-3">
-				<label for="category" class="form-label">Seleziona categoria</label>
-				<select class="form-select" name="category_id" id="category">
-					<option value="">Seleziona</option>
-					@foreach ($categories as $category)
-					<option value="{{ $category->id }}" @selected($project->category_id == $category->id)>{{ $category->name }}</option>
-					@endforeach
-				</select>
-			</div>
+                <label for="category" class="form-label">Seleziona categoria</label>
+                <select class="form-select" name="category_id" id="category">
+                    <option value="">Seleziona</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @selected($project->category_id == $category->id)>{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Descrizione</label>
@@ -46,6 +46,32 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- MODIFICA TECHNOLOGIES --}}
+            <div class="mb-3">
+                <h4>Modifica le Tech:</h4>
+                <ul class="list-group">
+                    @foreach ($technologies as $technology)
+                        <li class="list-group-item">
+
+                            {{-- Validazione --}}
+                            @if (old('technologies') !== null)
+                                <input @checked(in_array($technology->id, old('technologies'))) name="technologies[]" class="form-check-input me-1"
+                                    type="checkbox" value="{{ $technology->id }}" id="tag-{{ $technology->id }}">
+                            @else
+                                <input @checked($project->technologies->contains($technology)) name="technologies[]" class="form-check-input me-1"
+                                    type="checkbox" value="{{ $technology->id }}" id="tag-{{ $technology->id }}">
+                            @endif
+
+                            <label class="form-check-label" for="technology-{{ $technology->id }}">
+                                {{ $technology->name }}
+                            </label>
+
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
 
             <button class="btn btn-success" type="submit">Salva</button>
             <a class="btn btn-danger" href="{{ route('admin.projects.index') }}">Indietro</a>

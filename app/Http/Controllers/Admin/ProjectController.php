@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Technology;
 
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
@@ -31,7 +32,8 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $categories = Category::all();
-        return view("admin.projects.create", compact('project', 'categories'));
+        $technologies = Technology::all();
+        return view("admin.projects.create", compact('project', 'categories', 'technologies'));
     }
 
     /**
@@ -47,6 +49,11 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route("admin.projects.index");
+
+        if ($request->has('technologies')) {
+
+            $project->technologies()->attach($request->technologies);
+        }
     }
 
     /**
@@ -64,7 +71,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $categories = Category::all();
-        return view('admin.projects.edit', compact('project', 'categories'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project', 'categories', 'technologies'));
     }
 
     /**
@@ -79,6 +87,8 @@ class ProjectController extends Controller
 
         $project->update($validatedData);
 
+        $project->technologies()->sync($request->technologies);
+
         // return redirect()->route('admin.projects.show');
         return redirect()->route('admin.projects.show', ['project' => $project->slug])->with('message', 'Il post ' . $project->title . ' è stato modificato');
     }
@@ -88,6 +98,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->detach();
         $project->delete();
         // return redirect()->route('admin.projects.index');
         return redirect()->route('admin.projects.index')->with('message', 'Il post ' . $project->title . ' è stato cancellato');
